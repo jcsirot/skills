@@ -1,12 +1,12 @@
 ---
 name: feature-development-workflow
-description: Guides the user through a strict 4-phase software development life cycle (Product Owner, Planning, Technical Analysis, Dev & Test) to implement a new feature. Trigger this when creating, coding, or designing a new feature or user story.
+description: Guides the user through a strict 4-phase software development life cycle (Product Owner, Planning, Technical Analysis, Dev & Test) to implement a new feature, including PR slicing and branch naming. Trigger this when creating, coding, or designing a new feature or user story, especially when the user needs a structured feature workflow from discovery to implementation.
 context: project
 license: Apache-2.0
 metadata: 
   author: Jean-Christophe Sirot
-  version: 1.0.1
-  last-updated: 2026-02-07
+  version: 1.0.3
+  last-updated: 2026-07-07
 ---
 
 # Feature Development Workflow
@@ -32,16 +32,27 @@ You are an elite AI Software Engineer, Product Owner, and Tech Lead. Your purpos
 ---
 
 ## 🗺️ PHASE 2: PLANNING (Decomposition & PR Strategy)
-**Objective:** Breakdown the feature into logical, manageable increments and define a clean Git strategy.
+**Objective:** Breakdown the feature into logical, manageable increments and define a clean Git, branch, and commit strategy.
 
 ### AI Behavior & Guidelines:
 1. Decompose the validated scope into independent, incremental **User Stories (US)**.
 2. Propose a Pull Request (PR) alignment strategy.
-3. **Golden Rule:** `1 Feature = 1 PR`.
-4. *Exception Handling:* If the feature introduces massive structural changes or heavy optional sub-components, explicitly advise the user to break it down into smaller, sequential sub-features (and multiple PRs) to ensure safe, high-quality code reviews.
+3. Define the branch naming convention for the proposed work.
+4. **Golden Rule:** `1 Feature = 1 PR`.
+5. *Exception Handling:* If the feature introduces massive structural changes or heavy optional sub-components, explicitly advise the user to break it down into smaller, sequential sub-features (and multiple PRs) to ensure safe, high-quality code reviews.
+6. Reuse the repository's documented branch naming convention if one exists. Otherwise, default to these formats:
+   - `feat/<scope>-<short-description>` for main feature work
+   - `fix/<scope>-<short-description>` for bug fixes discovered during feature delivery
+   - `chore/<scope>-<short-description>` for technical groundwork or tooling
+   - `refactor/<scope>-<short-description>` for code refactoring or architectural improvements
+   - `docs/<scope>-<short-description>` for documentation updates
+7. Branch names must stay lowercase, use kebab-case after the slash, remain concise, and reflect the intent of the PR.
+8. If the feature spans multiple PRs, propose one explicit branch name per PR rather than a single generic branch name.
+9. Impose **Conventional Commits** for all commits. Prefer formats such as `feat(scope): short summary`, `fix(scope): short summary`, `refactor(scope): short summary`, `test(scope): short summary`, `docs(scope): short summary`, or `chore(scope): short summary`.
+10. Ensure the proposed commit types stay aligned with the branch purpose and the exact scope of the change.
 
 ### Expected Output / Deliverable:
-- A structured list of User Stories and a proposed sequence of PRs.
+- A structured list of User Stories, a proposed sequence of PRs, the branch name to use for each PR, and the expected Conventional Commit format for the related commits.
 - **Transition Prompt:** "If this breakdown and PR strategy works for you, please approve it to move to **Phase 3: Technical Analysis**."
 
 ---
@@ -68,6 +79,7 @@ You are an elite AI Software Engineer, Product Owner, and Tech Lead. Your purpos
 2. **Absolute Rule:** Every single piece of code produced must be accompanied by its corresponding automated tests (unit tests, integration tests, or architectural rules as standard for the project).
 3. Strictly adhere to existing coding standards, design patterns, and naming conventions within the project.
 4. Keep functions small, modular, and self-documenting.
+5. When commits are proposed or prepared, use **Conventional Commits** consistently and keep each commit message tightly scoped to the actual change.
 
 ### Expected Output / Deliverable:
 - Complete, well-factored source code with a fully passing suite of automated tests.
