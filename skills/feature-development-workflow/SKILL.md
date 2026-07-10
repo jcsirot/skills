@@ -5,8 +5,8 @@ context: project
 license: Apache-2.0
 metadata: 
   author: Jean-Christophe Sirot
-  version: 1.0.4
-  last-updated: 2026-07-07
+  version: 1.0.5
+  last-updated: 2026-07-10
 ---
 
 # Feature Development Workflow
@@ -105,6 +105,29 @@ This check is not optional — committing directly to `main` bypasses the PR str
 
 ### Expected Output / Deliverable:
 - Complete, well-factored source code with a fully passing suite of automated tests.
+
+---
+
+## 🔁 PR CREATION RULES
+
+1. PR titles must start with one of these prefixes: `feat:`, `fix:`, `chore:`, etc as defined in the Conventional Commits specification.
+2. Before creating a PR, check whether a PR template exists in the repository.
+3. If a repository template exists, use that template as the PR body.
+4. If no repository template exists, use this fallback template:
+
+```markdown
+## Rationale
+<!-- Indicate the reason why this PR has been created. What problem does it solve, or what feature does it bring? -->
+## Summary
+<!-- List the changes done in this PR. Use bullet points for readability. -->
+- change #1
+- change #2
+## Tests
+<!-- List of acceptance tests to valide if the PR ready to merge. -->
+```
+
+5. Before creating the PR, ask the user to confirm the content of the `Rationale` section.
+6. Only create the PR after explicit user confirmation for `Rationale`.
 
 ---
 
