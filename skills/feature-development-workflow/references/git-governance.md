@@ -1,6 +1,6 @@
 # Git governance reference
 
-Use this reference whenever the workflow needs branch strategy, commit standards, branch safety checks, or PR creation.
+Use this reference in both workflow modes (`large_feature` and `small_change`) whenever branch strategy, commit standards, branch safety checks, or PR creation rules apply.
 
 ## Planning section (Phase 2)
 
@@ -22,7 +22,7 @@ Use this reference whenever the workflow needs branch strategy, commit standards
    - `docs(scope): short summary`
    - `chore(scope): short summary`
 
-## Branch safety protocol (Phase 4 precondition)
+## Branch safety protocol (precondition before touching files)
 
 Before creating or modifying any file:
 
