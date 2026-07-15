@@ -1,11 +1,11 @@
 ---
 name: feature-development-workflow
-description: Routes implementation work to the right delivery mode: a strict 4-phase workflow for large features, or a lightweight path for small fixes/refactors. Always enforce Git governance (branch naming, Conventional Commits, PR formatting/template usage) in both modes. Trigger when users ask to build features, deliver user stories, implement fixes, or structure delivery with clear Git and PR rules.
+description: "Routes implementation work to the right delivery mode: a strict 4-phase workflow for large features, or a lightweight path for small fixes/refactors. Always enforce Git governance (branch naming, Conventional Commits, PR formatting/template usage) in both modes. Trigger when users ask to build features, deliver user stories, implement fixes, or structure delivery with clear Git and PR rules."
 context: project
 license: Apache-2.0
 metadata: 
   author: Jean-Christophe Sirot
-  version: 1.1.0
+  version: 1.1.1
   last-updated: 2026-07-15
 ---
 
