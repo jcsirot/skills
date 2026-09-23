@@ -33,7 +33,13 @@ mixed-language changes, apply each relevant guide independently.
      closed on every relevant path?
 
 5. **Testing and operability**
-   - Do tests cover the changed behavior, failure paths, and important
-     boundaries without relying on brittle timing or implementation details?
+   - Do tests cover the changed behavior, affected existing behavior, failure
+     paths, and important boundaries without relying on brittle timing or
+     implementation details?
+   - Does the test suite cover all changed contracts and their existing
+     callers, consumers, adapters, migrations, and configuration paths?
+   - When coverage is insufficient, propose focused unit tests with concrete
+     scenarios and assertions. Prefer unit tests for local logic and add
+     integration or contract tests when the risk crosses a process boundary.
    - Are logs, metrics, traces, feature flags, and rollback behavior sufficient
      for the risk and production impact of the change?

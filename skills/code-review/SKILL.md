@@ -6,7 +6,6 @@ description: >
   find bugs, assess security, check maintainability, or decide whether a
   change is ready to merge. Inspect repository guidance, changed files,
   surrounding code, and relevant tests before reporting findings.
-context: project
 license: Apache-2.0
 metadata:
   author: Jean-Christophe Sirot
@@ -25,8 +24,18 @@ Follow these steps for every review:
 
 1. **Establish scope and context**
    - Identify whether the input is a pull request, Git diff, patch, file, or snippet.
-   - For a change, inspect the diff and focus findings on changed behavior while
-     reading surrounding code and relevant call sites.
+   - For a pull request, start by reading its title, description, labels,
+     linked issues, and stated acceptance criteria. Treat that context as the
+     review contract and use it to identify intended behavior and scope before
+     inspecting implementation details.
+   - When reviewing a pull request from a local repository, check the working
+     tree and switch to the branch containing the pull request before reading
+     the code or diff. Never discard, reset, stash, or overwrite uncommitted
+     work; if the branch cannot be selected safely, stop and report the
+     limitation instead of reviewing a different branch as if it were the PR.
+   - For a change, inspect the diff against the correct PR base and focus
+     findings on changed behavior while reading surrounding code and relevant
+     call sites.
    - Read applicable repository guidance such as `AGENTS.md`, `CLAUDE.md`,
      contribution instructions, and local documentation.
    - Identify the language(s), runtime(s), framework(s), and toolchain versions
@@ -42,6 +51,14 @@ Follow these steps for every review:
    - Adapt findings to the project's language version, framework, build
      conventions, and existing patterns. Prefer project conventions over
      generic language advice when they are explicit and safe.
+   - Review the complete impact surface, not only added or modified lines.
+     Search all callers, implementations, consumers, interfaces, schemas,
+     migrations, configuration, serialization formats, background jobs, and
+     documentation affected by the changed contract.
+   - Check that required companion changes are present and that existing
+     behavior remains safe for unchanged callers. Compare success, failure,
+     boundary, compatibility, security, and performance behavior before and
+     after the change.
    - Check correctness, edge cases, compatibility, observability, and tests in
      addition to style and performance.
    - Prefer concrete evidence from the code. Distinguish confirmed defects
@@ -52,12 +69,21 @@ Follow these steps for every review:
 3. **Validate when practical**
    - Run relevant, non-destructive tests, linters, type checks, or static
      analysis when the repository provides them and the scope justifies it.
+   - Map changed behavior to existing tests and judge whether the coverage is
+     sufficient for the risk. When it is not, propose concrete unit tests with
+     a scenario, setup, and expected assertion; recommend integration or
+     contract tests as well when the risk crosses a process, persistence, or
+     framework boundary.
    - Report what was run and what was not run; never imply validation that did
      not happen.
 4. **Deliver actionable feedback**
    - Sort findings by severity and confidence.
    - Give each finding a precise file and line range, evidence, impact, and a
      minimal fix. Use a code snippet only when it clarifies the correction.
+   - Explicitly call out missing companion changes, regressions in existing
+     behavior, and insufficient test coverage as findings when supported by
+     evidence. Put actionable test proposals in the test-coverage section,
+     even when no production defect is confirmed.
    - If there are no actionable findings, say so explicitly and mention any
      remaining validation limits.
 

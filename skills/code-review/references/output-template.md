@@ -27,6 +27,12 @@ in 1-2 sentences.]
 ### ✨ Positive Findings
 - Optional concrete observations using `[PRAISE]`.
 
+## 🧪 Test Coverage
+- **Existing coverage:** [Tests that exercise the changed and affected behavior.]
+- **Gaps:** [Missing or insufficient scenarios, or `None identified`.]
+- **Proposed unit tests:** [Specific test names/scenarios and expected assertions.
+  Omit when coverage is sufficient.]
+
 ## ✅ Validation
 - **Checks run:** [Commands or inspections performed.]
 - **Checks not run:** [Relevant checks that were unavailable or intentionally omitted.]

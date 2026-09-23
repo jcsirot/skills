@@ -4,13 +4,13 @@
     {
       "id": 1,
       "prompt": "Review this API change as if it were a pull request. The handler builds a SQL query by concatenating the `userId` query parameter, returns records without checking tenant ownership, and has a test that only covers a valid ID. Identify actionable findings and state whether the change is ready to merge.",
-      "expected_output": "A structured review identifies the injection risk and missing authorization, gives severity, location or affected code path, impact, a minimal fix, confidence, and merge readiness.",
+      "expected_output": "The review starts from the pull request title and description when available, then identifies the injection risk and missing authorization, gives severity, location or affected code path, impact, a minimal fix, confidence, and merge readiness.",
       "files": []
     },
     {
       "id": 2,
       "prompt": "Review this small refactor that replaces a loop with a helper function. The behavior is covered by unit tests, the helper preserves error propagation, and no security or performance issue is apparent. Avoid inventing defects and report what validation remains.",
-      "expected_output": "The review reports no actionable findings or only narrowly justified nits, explicitly avoids false positives, and distinguishes checks run from checks not run.",
+      "expected_output": "The review checks affected existing callers rather than only the helper diff, reports no actionable findings or only narrowly justified nits, explicitly avoids false positives, assesses whether unit coverage is sufficient, and distinguishes checks run from checks not run.",
       "files": []
     },
     {
