@@ -24,15 +24,18 @@ Follow these steps for every review:
 
 1. **Establish scope and context**
    - Identify whether the input is a pull request, Git diff, patch, file, or snippet.
-   - For a pull request, start by reading its title, description, labels,
-     linked issues, and stated acceptance criteria. Treat that context as the
-     review contract and use it to identify intended behavior and scope before
-     inspecting implementation details.
-   - When reviewing a pull request from a local repository, check the working
-     tree and switch to the branch containing the pull request before reading
-     the code or diff. Never discard, reset, stash, or overwrite uncommitted
-     work; if the branch cannot be selected safely, stop and report the
-     limitation instead of reviewing a different branch as if it were the PR.
+   - Before reviewing a pull request in a local repository, check out its
+     branch first. Inspect the working tree for uncommitted changes, fetch the
+     branch if it is not available locally, and switch to it so that every
+     later step reads the PR's actual code rather than whatever branch
+     happened to be checked out. Never discard, reset, stash, or overwrite
+     uncommitted work to do this; if the branch cannot be selected safely,
+     stop and report the limitation instead of reviewing a different branch as
+     if it were the PR.
+   - Once on the correct branch, read the pull request's title, description,
+     labels, linked issues, and stated acceptance criteria. Treat that context
+     as the review contract and use it to identify intended behavior and scope
+     before inspecting implementation details.
    - For a change, inspect the diff against the correct PR base and focus
      findings on changed behavior while reading surrounding code and relevant
      call sites.
