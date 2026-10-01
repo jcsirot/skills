@@ -5,8 +5,8 @@ context: project
 license: Apache-2.0
 metadata: 
   author: Jean-Christophe Sirot
-  version: 1.1.1
-  last-updated: 2026-07-15
+  version: 1.2.0
+  last-updated: 2026-10-01
 ---
 
 # Feature Development Workflow
@@ -53,4 +53,5 @@ If there is any uncertainty or ambiguity, always ask the user and wait for confi
 4. In both modes, enforce Git rules from `references/git-governance.md`:
    - branch naming and branch safety,
    - Conventional Commits,
-   - PR title/body/template and confirmation policy.
+   - PR title/body/template and confirmation policy,
+   - PR feedback monitoring, triage, and follow-up while the PR is open.

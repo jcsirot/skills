@@ -62,3 +62,18 @@ Never implement directly on the default branch.
 
 5. Ask the user to confirm the `Rationale` content before creating the PR.
 6. Only create the PR after explicit user confirmation.
+
+## PR feedback monitoring and follow-up
+
+After a PR is created, keep track of it while it remains open. Check for new feedback and required-check results whenever the workflow resumes, a review/check notification arrives, or the user asks for an update. Do not claim to monitor continuously between those opportunities.
+
+For each new item, inspect the current diff and relevant code before deciding what to do. Consider review summaries, inline comments and unresolved threads, general PR comments, and required-check failures. Deduplicate repeated feedback and verify whether a comment is still relevant or has already been addressed.
+
+Classify each item and follow through:
+
+- **Actionable and within the agreed scope:** make the smallest correct change, add or update tests where appropriate, run relevant checks, and update the PR branch.
+- **Incorrect, stale, already resolved, or outside the agreed scope:** do not make a change just to satisfy the comment. Explain the evidence and rationale in a reply when appropriate.
+- **Ambiguous, conflicting with requirements, or requiring a material scope or design change:** explain the trade-off and ask the user before changing direction.
+- **Failed checks:** investigate the failure. Fix failures caused by the PR within scope; report unrelated or infrastructure failures without disguising them as passing.
+
+Reply to each addressed review thread with what changed or why no change is warranted. Resolve a thread only after its concern is fully addressed; when disagreeing or deferring, explain why and leave it open for reviewer confirmation. Continue this cycle until there is no actionable feedback or failed required check left, or the PR is merged/closed, or the user asks to stop.
