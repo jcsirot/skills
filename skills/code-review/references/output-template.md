@@ -3,9 +3,17 @@
 Use this structure. Omit a section only when it genuinely does not apply, and
 never invent a refactoring merely to populate the template.
 
+## 📋 PR Summary
+[Explain in plain language what the PR changes and the behavior it introduces
+or modifies. Distinguish the observed change from the stated intent. State
+whether a ticket reference was found in the source branch name or PR
+description; summarize its relevant goal or acceptance criteria if accessible,
+or state if it could not be accessed. For non-PR inputs, summarize only the
+provided change.]
+
 ## 🎯 Executive Summary
-[Summarize the reviewed scope, overall readiness, and the main validation limit
-in 1-2 sentences.]
+[Summarize overall merge readiness and the main validation limit in 1-2
+sentences; do not repeat the PR summary.]
 
 ## 🚨 Review Findings
 

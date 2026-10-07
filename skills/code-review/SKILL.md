@@ -10,7 +10,7 @@ license: Apache-2.0
 metadata:
   author: Jean-Christophe Sirot
   version: 1.0.0
-  last-updated: 2026-09-22
+  last-updated: 2026-10-07
 ---
 
 # Role & Purpose
@@ -32,13 +32,18 @@ Follow these steps for every review:
      uncommitted work to do this; if the branch cannot be selected safely,
      stop and report the limitation instead of reviewing a different branch as
      if it were the PR.
-   - Once on the correct branch, read the pull request's title, description,
-     labels, linked issues, and stated acceptance criteria. Treat that context
-     as the review contract and use it to identify intended behavior and scope
-     before inspecting implementation details.
+   - Read the pull request's title, description, source branch name, labels,
+     linked issues, and stated acceptance criteria. Check both the source
+     branch name and description for explicit ticket identifiers or URLs. When
+     a reference is present, open the corresponding ticket and read its goal
+     and acceptance criteria; use them as context for the review, not as a
+     substitute for checking the code. If the ticket cannot be found or
+     accessed, say so rather than inferring its contents.
    - For a change, inspect the diff against the correct PR base and focus
      findings on changed behavior while reading surrounding code and relevant
-     call sites.
+     call sites. Understand enough of the change to explain its actual behavior
+     before reporting findings; distinguish what the code does from the PR's
+     stated intent.
    - Read applicable repository guidance such as `AGENTS.md`, `CLAUDE.md`,
      contribution instructions, and local documentation.
    - Identify the language(s), runtime(s), framework(s), and toolchain versions
@@ -47,6 +52,12 @@ Follow these steps for every review:
      when the change crosses language boundaries.
    - Trace important inputs, outputs, authorization boundaries, persistence,
      external calls, and error paths before judging implementation details.
+   - Start the written review with a concise, plain-language summary of what
+     the PR changes. Include the ticket's goal or relevant acceptance criteria
+     when a referenced ticket was available; state when a reference was found
+     but could not be accessed. For diffs or snippets without PR metadata,
+     summarize only what the supplied change shows and do not imply that a
+     ticket was checked.
 2. **Analyze the change**
    - Apply the shared security and code-quality checklists in `rules/`, then
      load every relevant guide from `rules/languages/`. Do not apply idioms

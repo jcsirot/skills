@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "Review this API change as if it were a pull request. The handler builds a SQL query by concatenating the `userId` query parameter, returns records without checking tenant ownership, and has a test that only covers a valid ID. Identify actionable findings and state whether the change is ready to merge.",
-      "expected_output": "The review starts from the pull request title and description when available, then identifies the injection risk and missing authorization, gives severity, location or affected code path, impact, a minimal fix, confidence, and merge readiness.",
+      "expected_output": "The review opens with a concise, plain-language explanation of what the PR changes. It checks the source branch name and description for ticket references and, if one is present, reviews the ticket's goal and acceptance criteria or states if it could not access it. It then identifies the injection risk and missing authorization, gives severity, location or affected code path, impact, a minimal fix, confidence, and merge readiness.",
       "files": []
     },
     {
