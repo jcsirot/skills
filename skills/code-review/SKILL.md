@@ -24,6 +24,19 @@ Follow these steps for every review:
 
 1. **Establish scope and context**
    - Identify whether the input is a pull request, Git diff, patch, file, or snippet.
+   - Measure the change before analyzing it (for example with
+     `git diff --stat <base>...HEAD` or the PR file list) and choose a depth:
+     - **Focused** when the change touches 10 files or fewer and 300 changed
+       lines or fewer, and no file is in a sensitive area (authentication,
+       authorization, input handling, persistence, concurrency, dependencies,
+       or configuration). Review the changed hunks and their direct callers,
+       and load only the matching language guides and checklist items.
+     - **Full** otherwise, or whenever a sensitive area is touched. Follow the
+       complete workflow.
+   - Skip generated, minified, vendored, snapshot, and lock files (for example
+     `package-lock.json`, `*.min.js`, `dist/`, `__snapshots__/`). List them as
+     skipped and inspect only manifest-level changes such as dependency
+     version bumps. State the chosen depth and skipped files in the summary.
    - Before reviewing a pull request in a local repository, check out its
      branch first. Inspect the working tree for uncommitted changes, fetch the
      branch if it is not available locally, and switch to it so that every
@@ -59,16 +72,19 @@ Follow these steps for every review:
      summarize only what the supplied change shows and do not imply that a
      ticket was checked.
 2. **Analyze the change**
-   - Apply the shared security and code-quality checklists in `rules/`, then
-     load every relevant guide from `rules/languages/`. Do not apply idioms
-     from one language to another.
+   - Apply the shared security and code-quality checklists in `rules/` (in
+     Focused mode, only the items relevant to the changed code), then load
+     every relevant guide from `rules/languages/`. Do not apply idioms from
+     one language to another.
    - Adapt findings to the project's language version, framework, build
      conventions, and existing patterns. Prefer project conventions over
      generic language advice when they are explicit and safe.
    - Review the complete impact surface, not only added or modified lines.
      Search all callers, implementations, consumers, interfaces, schemas,
      migrations, configuration, serialization formats, background jobs, and
-     documentation affected by the changed contract.
+     documentation affected by the changed contract. In Focused mode, limit
+     this search to direct callers and direct consumers of the changed
+     contract.
    - Check that required companion changes are present and that existing
      behavior remains safe for unchanged callers. Compare success, failure,
      boundary, compatibility, security, and performance behavior before and
