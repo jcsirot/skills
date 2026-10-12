@@ -37,6 +37,14 @@ Follow these steps for every review:
      `package-lock.json`, `*.min.js`, `dist/`, `__snapshots__/`). List them as
      skipped and inspect only manifest-level changes such as dependency
      version bumps. State the chosen depth and skipped files in the summary.
+   - When re-reviewing a pull request that was already reviewed, use the last
+     reviewed commit SHA (from the previous review's `Reviewed commit` line or
+     from the user) as the base for the code analysis, so only the new commits
+     are reviewed. Use the PR base as the base when no SHA is known. If the
+     previous SHA is not an ancestor of the current head (force-push, rebase),
+     fall back to the PR base and say so. Still read the whole PR description
+     and check that the new commits do not break behavior introduced earlier
+     in the PR. Always report the reviewed head SHA and the base used.
    - Before reviewing a pull request in a local repository, check out its
      branch first. Inspect the working tree for uncommitted changes, fetch the
      branch if it is not available locally, and switch to it so that every
