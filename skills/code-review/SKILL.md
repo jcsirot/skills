@@ -86,7 +86,7 @@ Follow these steps for every review:
      quick mode, only the items relevant to the changed code), then load
      every relevant guide from `rules/languages/`. Do not apply idioms from
      one language to another.
-   - Charger les guides de framework à la demande (ex. Spring/Quarkus détectés dans `pom.xml`).
+   - Load framework guides on demand (e.g., Spring/Quarkus detected in `pom.xml`).
    - Adapt findings to the project's language version, framework, build
      conventions, and existing patterns. Prefer project conventions over
      generic language advice when they are explicit and safe.
