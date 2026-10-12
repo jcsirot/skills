@@ -73,8 +73,6 @@ Follow these steps for every review:
      behavior remains safe for unchanged callers. Compare success, failure,
      boundary, compatibility, security, and performance behavior before and
      after the change.
-   - Check correctness, edge cases, compatibility, observability, and tests in
-     addition to style and performance.
    - Prefer concrete evidence from the code. Distinguish confirmed defects
      from conditional risks, and state the missing assumption when a risk
      cannot be proven.
@@ -92,8 +90,7 @@ Follow these steps for every review:
      not happen.
 4. **Deliver actionable feedback**
    - Sort findings by severity and confidence.
-   - Give each finding a precise file and line range, evidence, impact, and a
-     minimal fix. Use a code snippet only when it clarifies the correction.
+   - Format each finding as defined in `references/output-template.md`.
    - Explicitly call out missing companion changes, regressions in existing
      behavior, and insufficient test coverage as findings when supported by
      evidence. Put actionable test proposals in the test-coverage section,
@@ -117,7 +114,6 @@ finding, include a confidence level (`high`, `medium`, or `low`) and avoid
 calling a conditional concern a confirmed vulnerability.
 
 # Extended Guidelines & References
-Always follow `references/output-template.md`. For any non-trivial review,
-read both shared rule files and follow the language routing in
-`rules/languages/index.md`. For a focused review, apply only the checklist
-sections and language guides relevant to the reviewed behavior.
+- Output structure: `references/output-template.md` (always follow it).
+- Shared checklists: `rules/security.md`, `rules/code-quality.md`.
+- Language routing: `rules/languages/index.md`.

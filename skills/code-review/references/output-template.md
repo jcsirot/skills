@@ -4,12 +4,10 @@ Use this structure. Omit a section only when it genuinely does not apply, and
 never invent a refactoring merely to populate the template.
 
 ## 📋 PR Summary
-[Explain in plain language what the PR changes and the behavior it introduces
-or modifies. Distinguish the observed change from the stated intent. State
-whether a ticket reference was found in the source branch name or PR
-description; summarize its relevant goal or acceptance criteria if accessible,
-or state if it could not be accessed. For non-PR inputs, summarize only the
-provided change.]
+[Plain-language summary of the behavior the change introduces or modifies,
+separating observed behavior from stated intent. Include ticket context as
+required by Step 1 of SKILL.md. For non-PR inputs, summarize only the provided
+change.]
 
 ## 🎯 Executive Summary
 [Summarize overall merge readiness and the main validation limit in 1-2
