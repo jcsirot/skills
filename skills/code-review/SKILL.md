@@ -26,13 +26,15 @@ Follow these steps for every review:
    - Identify whether the input is a pull request, Git diff, patch, file, or snippet.
    - Measure the change before analyzing it (for example with
      `git diff --stat <base>...HEAD` or the PR file list) and choose a depth:
-     - **Focused** when the change touches 10 files or fewer and 300 changed
+     - **quick** when the change touches 10 files or fewer and 300 changed
        lines or fewer, and no file is in a sensitive area (authentication,
        authorization, input handling, persistence, concurrency, dependencies,
        or configuration). Review the changed hunks and their direct callers,
        and load only the matching language guides and checklist items.
-     - **Full** otherwise, or whenever a sensitive area is touched. Follow the
-       complete workflow.
+     - **deep** when a sensitive area is touched, or the change exceeds 50
+       files or 1000 changed lines. Follow the complete workflow.
+     - **standard** otherwise. Follow the complete workflow, but limit
+       checklist items to the changed code.
    - Skip generated, minified, vendored, snapshot, and lock files (for example
      `package-lock.json`, `*.min.js`, `dist/`, `__snapshots__/`). List them as
      skipped and inspect only manifest-level changes such as dependency
@@ -81,7 +83,7 @@ Follow these steps for every review:
      ticket was checked.
 2. **Analyze the change**
    - Apply the shared security and code-quality checklists in `rules/` (in
-     Focused mode, only the items relevant to the changed code), then load
+     quick mode, only the items relevant to the changed code), then load
      every relevant guide from `rules/languages/`. Do not apply idioms from
      one language to another.
    - Charger les guides de framework à la demande (ex. Spring/Quarkus détectés dans `pom.xml`).
@@ -91,7 +93,7 @@ Follow these steps for every review:
    - Review the complete impact surface, not only added or modified lines.
      Search all callers, implementations, consumers, interfaces, schemas,
      migrations, configuration, serialization formats, background jobs, and
-     documentation affected by the changed contract. In Focused mode, limit
+     documentation affected by the changed contract. In quick mode, limit
      this search to direct callers and direct consumers of the changed
      contract.
    - Check that required companion changes are present and that existing
