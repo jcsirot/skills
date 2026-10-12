@@ -10,6 +10,7 @@ required by Step 1 of SKILL.md. For non-PR inputs, summarize only the provided
 change.]
 - **Reviewed commit:** `<head-sha>` (base: `<base-sha or PR base>`; incremental
   from `<previous-sha>` when applicable). Include this line for every PR review.
+- **Mode proportionné** (quick / standard / deep selon la taille du diff)
 
 ## 🎯 Executive Summary
 [Summarize overall merge readiness and the main validation limit in 1-2
