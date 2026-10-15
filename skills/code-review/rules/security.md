@@ -1,43 +1,90 @@
 # Security Review Checklist
 
-When reviewing code, systematically check the areas that apply. Only report a
+When reviewing code, systematically check the areas that apply to the changed
+behavior and its trust boundaries. Treat this as a risk-based checklist, not a
+requirement to comment on every control in every PR. Only report a
 vulnerability when the code and its data flow provide evidence for it.
 
 For language and framework-specific security checks, use
-`rules/languages/index.md` to select the applicable guides. For mixed-language
+`rules/tech-domains/index.md` to select the applicable guides. For mixed-language
 changes, load every relevant guide and keep shared concerns separate from
 language-specific concerns. If no guide exists, use this checklist and state
 that the review used generic guidance.
 
-1. **Inputs and injection**
-   - Are untrusted inputs validated for type, size, range, and expected format?
-   - Are SQL/NoSQL/LDAP queries, shell commands, templates, and HTML safely
-     parameterized or encoded?
+1. **Inputs, validation, and injection**
+   - Are external inputs (including forms, API bodies, URL parameters, and
+     headers) validated for type, size, range, and domain-specific format?
+     Prefer allowlists or schemas where practical; ensure canonicalization
+     does not create validation bypasses.
+   - Are SQL/NoSQL/LDAP queries parameterized or built through a safely
+     configured ORM? Check dynamic identifiers and query fragments separately.
+   - Is untrusted output encoded for its exact context (HTML text/attribute,
+     JavaScript, CSS, or URL) rather than relying on generic sanitization?
+   - Can untrusted data reach shell or code execution (`exec`, `system`,
+     `eval`, or equivalents)? Prefer APIs that avoid a shell and pass arguments
+     separately; never concatenate untrusted values into executable commands.
+   - For uploads, are size and content checked, and are filename, extension,
+     declared MIME type, and actual file content handled safely? Check storage
+     location, generated names, and downstream parsing as relevant; client
+     supplied MIME type or extension alone is not proof of file type.
    - Are file paths, redirects, URLs, and archive contents protected against
      traversal, SSRF, open redirects, and unsafe file access?
 
-2. **Authentication, authorization, and abuse controls**
-   - Is authentication enforced at the correct boundary?
-   - Are object-level and role-based permissions checked server-side?
-   - Are sessions, tokens, cookies, CSRF protections, rate limits, and
-     replay/idempotency behavior appropriate for the operation?
+2. **Authentication and session management**
+   - Is authentication enforced at the correct boundary, with passwords stored
+     using a maintained adaptive password-hashing scheme with salts (such as
+     Argon2id, bcrypt, or scrypt)? Check that passwords are not stored or
+     logged in plaintext.
+   - For JWTs or other signed tokens, is the signature verified with an
+     explicitly allowed strong algorithm and appropriate keys? Check
+     expiration and relevant issuer, audience, and rotation requirements;
+     reject unsigned or otherwise invalid tokens.
+   - Do session cookies use `HttpOnly` and `Secure` where applicable, and a
+     `SameSite` policy (`Strict` or `Lax` when compatible)? If cross-site
+     cookies require `SameSite=None`, check that `Secure` and appropriate
+     CSRF defenses are also present.
 
-3. **Secrets and sensitive data**
-   - Are API keys, tokens, passwords, or private certificates hardcoded,
-     logged, committed, or exposed in client-visible responses?
+3. **Authorization and abuse controls**
+   - Does each sensitive route or operation enforce least privilege and
+     server-side role/permission checks, with safe default-deny behavior?
+   - Are object-level permissions checked for the specific requested resource
+     (IDOR/BOLA), not merely for the route or object identifier?
+   - For state-changing requests authenticated by cookies, are CSRF defenses
+     appropriate (tokens and/or validated origin checks, with `SameSite` as
+     defense in depth)? Do not require CSRF tokens for unrelated bearer-token
+     APIs without evidence of a browser cookie threat.
+   - Do sensitive endpoints (such as login, password reset, and payment) have
+     suitable rate limits or other controls against brute force and abuse?
+   - Are replay and idempotency protections appropriate for the operation?
+
+4. **Secrets, cryptography, and sensitive data**
+   - Are API keys, tokens, database passwords, JWT signing secrets, or private
+     certificates hardcoded, logged, committed, or exposed in client-visible
+     responses? Check the relevant secret-management and client-build paths.
+   - Are cryptographic primitives appropriate and maintained? Flag weak or
+     obsolete algorithms (for example MD5, SHA-1, DES, or RC4) when used for
+     security-sensitive purposes; do not recommend custom cryptography.
+   - Is security-sensitive randomness generated by a cryptographically secure
+     random number generator rather than a general-purpose PRNG?
    - Is personal, financial, or tenant data minimized and protected in
      responses, logs, caches, analytics, and error messages?
-
-4. **Parsing, cryptography, and dependencies**
    - Is user-controlled JSON, YAML, XML, serialization, or archive data parsed
      safely without unsafe object construction or resource exhaustion?
-   - Are cryptographic primitives, randomness, certificate validation, and
-     password storage appropriate for the use case?
-   - Do dependency or configuration changes introduce a clear supply-chain or
-     insecure-default risk?
 
-5. **Failure and information leakage**
-   - Do errors, stack traces, debug endpoints, metrics, or logs disclose
-     credentials, internal topology, or sensitive records?
-   - Are security failures handled closed-by-default without silently bypassing
-     validation or authorization?
+5. **Errors, logging, and secure failure behavior**
+   - Do errors returned to users avoid stack traces, database details, secrets,
+     and internal implementation or version information?
+   - Where relevant, are security events (such as authentication failures or
+     permission changes) logged in a useful, reviewable way without recording
+     passwords, tokens, payment data, or unnecessary personal information?
+   - Are security failures handled closed-by-default without silently
+     bypassing validation or authorization?
+
+6. **Dependencies and production configuration**
+   - Do dependency or lockfile changes introduce known vulnerable or
+     unmaintained packages, unsafe sources, or risky install/build scripts?
+     Use existing audit or advisory tooling when available, and distinguish
+     checks actually run from checks not run.
+   - Do configuration changes expose insecure defaults, debug mode, or
+     development/test services in production? Check relevant security headers,
+     TLS/certificate validation, and management/debug endpoints.

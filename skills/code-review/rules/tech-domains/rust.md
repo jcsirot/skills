@@ -1,8 +1,9 @@
 # Rust Review Guide
 
-Apply this guide to Rust code, Cargo manifests, asynchronous runtimes, and FFI
-boundaries. Review the safety contract of the actual crate and toolchain rather
-than treating every warning or `unsafe` block as a defect.
+Apply this guide to Rust code, Cargo manifests, and FFI boundaries. Review the
+safety contract of the actual crate and toolchain rather than treating every
+warning or `unsafe` block as a defect. Load runtime or web-framework guides
+from `rules/tech-domains/index.md` when the changed code uses them.
 
 ## Code quality, correctness, and performance
 

@@ -3,7 +3,7 @@
 Evaluate maintainability and robustness using the principles that apply to the
 reviewed change:
 
-Use `rules/languages/index.md` to select language and framework-specific
+Use `rules/tech-domains/index.md` to select language and framework-specific
 quality guidance. Do not transfer idioms from one language to another; for
 mixed-language changes, apply each relevant guide independently.
 

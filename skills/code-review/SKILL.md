@@ -9,8 +9,8 @@ description: >
 license: Apache-2.0
 metadata:
   author: Jean-Christophe Sirot
-  version: 1.0.0
-  last-updated: 2026-10-07
+  version: 2.0.0
+  last-updated: 2026-10-15
 ---
 
 # Role & Purpose
@@ -32,13 +32,22 @@ Follow these steps for every review:
        or configuration). Review the changed hunks and their direct callers,
        and load only the matching language guides and checklist items.
      - **deep** when a sensitive area is touched, or the change exceeds 50
-       files or 1000 changed lines. Follow the complete workflow.
+       files or 1000 changed lines. Follow the complete workflow and expand
+       impact analysis beyond direct callers: trace affected entry points,
+       indirect consumers, trust boundaries, data flows, and operational
+       paths. Check relevant failure, compatibility, migration, rollout, and
+       concurrency behavior across those paths, and use the full applicable
+       shared and language-specific checklists.
      - **standard** otherwise. Follow the complete workflow, but limit
-       checklist items to the changed code.
-   - Skip generated, minified, vendored, snapshot, and lock files (for example
-     `package-lock.json`, `*.min.js`, `dist/`, `__snapshots__/`). List them as
-     skipped and inspect only manifest-level changes such as dependency
-     version bumps. State the chosen depth and skipped files in the summary.
+       checklist items to changed code and behavior, while tracing the
+       affected callers and consumers required by the workflow.
+   - Skip generated, minified, vendored, and snapshot files (for example
+     `*.min.js`, `dist/`, and `__snapshots__/`). Do not review lockfiles
+     line-by-line when they contain generated churn, but inspect their
+     semantic dependency changes: resolved package names and versions,
+     sources, integrity metadata, and consistency with the manifests. Apply
+     the dependency checks in the relevant language guide. List files that
+     were skipped or summarized, and state the chosen depth in the summary.
    - When re-reviewing a pull request that was already reviewed, use the last
      reviewed commit SHA (from the previous review's `Reviewed commit` line or
      from the user) as the base for the code analysis, so only the new commits
@@ -84,11 +93,13 @@ Follow these steps for every review:
 2. **Analyze the change**
    - Apply the shared security and code-quality checklists in `rules/` (in
      quick mode, only the items relevant to the changed code), then load
-     every relevant guide from `rules/languages/`. Do not apply idioms from
+     every relevant guide from `rules/tech-domains/`. Do not apply idioms from
      one language to another.
-   - Framework advice comes from the language guides, which cover visible
-     frameworks (e.g., Spring/Quarkus in `pom.xml` load `java.md`). Follow
-     `rules/languages/index.md` for routing.
+   - Runtime- and framework-specific advice comes from conditional language
+     guides. Always load the base language guide, then add runtime/framework
+     guides only when the routing evidence specified in
+     `rules/tech-domains/index.md` is present. Do not load a guide based only on
+     an unrelated development dependency.
    - Adapt findings to the project's language version, framework, build
      conventions, and existing patterns. Prefer project conventions over
      generic language advice when they are explicit and safe.
@@ -145,4 +156,4 @@ calling a conditional concern a confirmed vulnerability.
 # Extended Guidelines & References
 - Output structure: `references/output-template.md` (always follow it).
 - Shared checklists: `rules/security.md`, `rules/code-quality.md`.
-- Language routing: `rules/languages/index.md`.
+- Language and technical-domain routing: `rules/tech-domains/index.md`.

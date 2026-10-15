@@ -36,6 +36,10 @@ sentences; do not repeat the PR summary.]
 ### ✨ Positive Findings
 - Optional concrete observations using `[PRAISE]`.
 
+## 🔐 Security Review
+- **Controls reviewed:** [Applicable areas from `rules/security.md`: inputs/injection, authentication/session, authorization/abuse, secrets/cryptography, errors/logging, and dependencies/configuration. If no security-relevant behavior changed, say so rather than implying every control was verified.]
+- **Assessment:** [No actionable security findings, or reference the relevant findings above. State material assumptions or controls that could not be verified; do not repeat finding details or claim unchecked controls passed.]
+
 ## 🧪 Test Coverage
 - **Existing coverage:** [Tests that exercise the changed and affected behavior.]
 - **Gaps:** [Missing or insufficient scenarios, or `None identified`.]
