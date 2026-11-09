@@ -60,6 +60,18 @@
       "prompt": "Re-review a PR at head def456 after a previous review at abc123. An analyzer integration is inaccessible, and no comparable baseline results are available. Explain what you can establish about newly introduced analyzer issues.",
       "expected_output": "The review reports that analyzer results and a comparable baseline are unavailable, distinguishes the incremental review range from the PR scope, and does not claim that there are no new analyzer issues.",
       "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "Review a PR with two discussions: an unresolved thread says that a request can bypass tenant authorization, which the current code confirms; a resolved thread raises a timeout that the current code still does not handle. Propose corrections without posting replies.",
+      "expected_output": "The review checks both threads against the current code and replies, links or identifies each discussion, reports both supported outstanding concerns with evidence and concrete corrections, and does not assume the resolved concern was fixed or post replies.",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "Review a PR where an open comment complains about a null dereference already fixed in the current head, while another comment demands a rewrite without evidence. The review discussion history is only partially accessible.",
+      "expected_output": "The review identifies the fixed concern as no longer actionable despite the open thread, explains why the unsupported rewrite is not a confirmed issue, states that discussion history is incomplete, and does not modify code or discussion state.",
+      "files": []
     }
   ]
 }
