@@ -42,6 +42,24 @@
       "prompt": "Review this TypeScript web change with an HTML template and CSS module. It inserts a profile field with `innerHTML`, trusts a client-side TypeScript interface for request data, adds a `target=\"_blank\"` external link without opener protection, and uses a user-derived CSS value inside `url()`. Apply TypeScript, HTML, and CSS-specific security and quality criteria.",
       "expected_output": "The review separates compile-time type erasure, DOM XSS, external-link isolation, and CSS trust-boundary concerns, identifies the relevant markup or code locations, and avoids treating normal CSS style conventions as vulnerabilities.",
       "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Review a small PR whose current head is abc123. A Sonar MCP integration is available and reports one new issue on the PR at abc123 and one existing issue from its base branch. The new issue is supported by the changed code. Check whether the PR introduces analyzer issues.",
+      "expected_output": "The review uses the accessible analyzer for the PR and reviewed head, verifies the analysis and comparison scope, reports the supported new issue with evidence and location, excludes the unrelated existing issue, and records the analyzer result and validation scope.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Review a PR whose current head is def456. The available analyzer's only completed PR analysis is for older commit abc123, while analysis for def456 is pending. The old analysis has no findings and a passing quality gate.",
+      "expected_output": "The review identifies the analyzer results as stale or pending, records the analyzed and reviewed revisions and limitation, and does not claim that def456 introduces no analyzer issues based on the old passing result.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Re-review a PR at head def456 after a previous review at abc123. An analyzer integration is inaccessible, and no comparable baseline results are available. Explain what you can establish about newly introduced analyzer issues.",
+      "expected_output": "The review reports that analyzer results and a comparable baseline are unavailable, distinguishes the incremental review range from the PR scope, and does not claim that there are no new analyzer issues.",
+      "files": []
     }
   ]
 }

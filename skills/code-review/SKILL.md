@@ -121,6 +121,29 @@ Follow these steps for every review:
 3. **Validate when practical**
    - Run relevant, non-destructive tests, linters, type checks, or static
      analysis when the repository provides them and the scope justifies it.
+   - Independently of review depth, discover available code-analysis results
+     for the change through configured integrations (including MCP), CI checks,
+     or repository-provided tools. When an applicable analyzer such as Sonar
+     or Codacy is accessible, inspect its findings and quality gate for the PR
+     or reviewed revision rather than relying only on a generic check status.
+     Use read-only access where possible; do not launch an analysis that
+     modifies shared state without authorization.
+   - Verify the analyzed repository, PR or branch, head commit, analysis status,
+     and comparison baseline where the tool exposes them. Distinguish new
+     issues introduced by the reviewed change from pre-existing issues, using
+     the analyzer's PR/new-code comparison or a comparable baseline. For an
+     incremental re-review, identify whether results cover the whole PR or only
+     commits since the previously reviewed SHA. Do not equate an empty result
+     or a passing quality gate with zero new issues unless the results are
+     complete and match the reviewed scope and revision.
+   - Inspect relevant new findings against the code, deduplicate them against
+     other review findings, and report actionable ones with evidence, impact,
+     location, severity, and confidence. Do not present an analyzer warning as
+     a confirmed defect without checking it. Report analyzer name, analyzed
+     revision and scope, and findings or quality-gate status in validation;
+     explicitly state when results are unavailable, incomplete, stale,
+     inaccessible, still pending, or cannot be compared to a baseline. Never
+     claim that the change adds no analyzer issues in those cases.
    - Map changed behavior to existing tests and judge whether the coverage is
      sufficient for the risk. When it is not, propose concrete unit tests with
      a scenario, setup, and expected assertion; recommend integration or
