@@ -23,6 +23,8 @@ that coverage is generic.
 | Tokio runtime (details below) | `tokio.md` in addition to `rust.md` |
 | Axum crate (details below) | `axum.md`, `tokio.md`, and `rust.md` |
 | REST API endpoints, contracts, or client behavior (details below) | `rest-api.md` in addition to applicable language/runtime guides |
+| Dockerfiles (`Dockerfile`, `Dockerfile.*`, or `*.Dockerfile`) | `docker.md` |
+| Docker Compose manifests (`docker-compose.yml`/`.yaml` or `compose.yml`/`.yaml`) | `docker-compose.md` |
 | `.html`, server-rendered templates, HTML components | `html.md` |
 | `.css`, Sass/Less, CSS modules, utility stylesheets | `css.md` |
 
