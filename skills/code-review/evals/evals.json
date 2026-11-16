@@ -72,6 +72,12 @@
       "prompt": "Review a PR where an open comment complains about a null dereference already fixed in the current head, while another comment demands a rewrite without evidence. The review discussion history is only partially accessible.",
       "expected_output": "The review identifies the fixed concern as no longer actionable despite the open thread, explains why the unsupported rewrite is not a confirmed issue, states that discussion history is incomplete, and does not modify code or discussion state.",
       "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "Review a large PR whose stated goal is to add CSV export. The diff also adds a dependency with an install script that downloads and executes a remote binary, and includes a substantial logging refactor unrelated to export that improves readability but makes the PR harder to assess. Review whether the changes are justified and whether the PR is ready to merge.",
+      "expected_output": "The review maps substantive changes to the requested CSV export, identifies the unrequested dependency/install behavior as a concrete supply-chain risk without asserting malicious intent beyond evidence, and recommends removing or separately reviewing it. It recognizes the readability refactor as potentially useful but recommends a separate PR because it is unrelated and materially complicates review. It does not flag negligible editorial changes or treat every extra line as a defect.",
+      "files": []
     }
   ]
 }

@@ -4,13 +4,17 @@ description: >
   Performs evidence-based code reviews of pull requests, Git diffs, patches,
   and code snippets. Use this skill whenever the user asks to review code,
   find bugs, assess security, check maintainability, or decide whether a
-  change is ready to merge. Inspect repository guidance, changed files,
-  surrounding code, and relevant tests before reporting findings.
+  change is ready to merge. Check whether substantive changes are necessary
+  and valuable for the requested outcome, and surface unexplained or risky
+  scope expansion, especially in large PRs. Recommend separate PRs for useful
+  but unrelated changes that materially complicate review. Inspect repository
+  guidance, changed files, surrounding code, and relevant tests before
+  reporting findings.
 license: Apache-2.0
 metadata:
   author: Jean-Christophe Sirot
-  version: 2.1.0
-  last-updated: 2026-11-09
+  version: 2.2.0
+  last-updated: 2026-11-16
 ---
 
 # Role & Purpose
@@ -41,8 +45,12 @@ Follow these steps for every review:
      - **standard** otherwise. Follow the complete workflow, but limit
        checklist items to changed code and behavior, while tracing the
        affected callers and consumers required by the workflow.
-   - Skip generated, minified, vendored, and snapshot files (for example
-     `*.min.js`, `dist/`, and `__snapshots__/`). Do not review lockfiles
+   - Avoid line-by-line review of generated, minified, vendored, and snapshot
+     files (for example `*.min.js`, `dist/`, and `__snapshots__`) when their
+     authoritative source and relationship to the artifact can be verified.
+     Inspect provenance and meaningful semantic changes; investigate
+     unexplained executable behavior or artifact changes rather than letting
+     a file's generated/vendor status hide them. Do not review lockfiles
      line-by-line when they contain generated churn, but inspect their
      semantic dependency changes: resolved package names and versions,
      sources, integrity metadata, and consistency with the manifests. Apply
@@ -81,6 +89,20 @@ Follow these steps for every review:
      call sites. Understand enough of the change to explain its actual behavior
      before reporting findings; distinguish what the code does from the PR's
      stated intent.
+   - Check scope and necessity against the request, PR description, ticket, and
+     acceptance criteria. For each substantive behavior change, establish how
+     it supports the requested outcome; do not treat inclusion in the diff as
+     proof that it was requested. Ignore changes with no meaningful behavioral
+     or maintenance impact, such as spelling fixes or editorial wording. Other
+     additional changes should be justified by concrete value (for example,
+     a small refactor that improves readability or removes a directly relevant
+     code smell). Call out unnecessary changes that add risk or review
+     complexity, and examine unexpected dependencies, build/install scripts,
+     network or process behavior, credential access, obfuscation, and other
+     executable changes carefully, especially in large PRs. Ground concerns in
+     code evidence; do not infer malicious intent from unfamiliar code alone.
+     If a useful but unrelated change materially complicates review and is not
+     needed for this change, recommend moving it to a separate PR.
    - Read applicable repository guidance such as `AGENTS.md`, `CLAUDE.md`,
      contribution instructions, and local documentation.
    - Identify the language(s), runtime(s), framework(s), and toolchain versions
@@ -118,6 +140,10 @@ Follow these steps for every review:
      behavior remains safe for unchanged callers. Compare success, failure,
      boundary, compatibility, security, and performance behavior before and
      after the change.
+   - Do not let a large diff dilute scope review: account for every substantive
+     change, including dependencies and executable build or install behavior,
+     and identify unexplained additions even when the requested feature itself
+     appears correct.
    - Assess relevant reviewer comments and discussions against the current
      code, diff, and subsequent replies, regardless of thread resolution
      state. Distinguish actionable unresolved concerns from addressed, stale,
